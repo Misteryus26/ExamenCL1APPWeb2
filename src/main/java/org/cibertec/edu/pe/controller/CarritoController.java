@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.cibertec.edu.pe.interfaceService.IProductosServices;
 import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.service.ProductoService;
+import org.cibertec.edu.pe.service.SubirImagen;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,43 +20,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
-@RequestMapping("/api/productos") // Ruta base para todas las operaciones
+@Controller
+@RequestMapping("/api/productos")
 public class CarritoController {
-	
 
+    @Autowired
+    private IProductosServices productoService;
 
-
-	    @Autowired
-	    private IProductosServices productoService;
-
-	    @PostMapping("/")
-	    public Producto createProducto(@RequestBody Producto producto) {
-	        return productoService.save(producto);
-	    }
-
-	    @GetMapping("/{id}")
-	    public Optional<Producto> getProducto(@PathVariable Integer id) {
-	        return productoService.get(id);
-	    }
-
-	    @PutMapping("/{id}")
-	    public void updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
-	        Optional<Producto> existingProducto = productoService.get(id);
-	        if (existingProducto.isPresent()) {
-	            producto.setProducto_id(id);
-	            productoService.update(producto);
-	        }
-	    }
-
-	    @DeleteMapping("/{id}")
-	    public void deleteProducto(@PathVariable Integer id) {
-	        productoService.delete(id);
-	    }
-
-	    @GetMapping("/")
-	    public List<Producto> getAllProductos() {
-	        return productoService.findAll();
-	    }
-	}
+    @GetMapping("/")
+    public String getAllProductos(Model model) {
+        List<Producto> productos = productoService.findAll();
+        System.out.println("Número de productos cargados: " + productos.size()); // Agrega esta línea para verificar
+        model.addAttribute("productos", productos); // Agrega la lista de productos al modelo
+        return "index";
+    }
+}
 

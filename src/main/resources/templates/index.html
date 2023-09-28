@@ -29,20 +29,20 @@
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col-sm-4" th:each="producto : ${productos}">
+            <div class="col-sm-4" >
                 <div class="card small-card">
                     <div class="card-header">
-                        <h2 th:text="${producto.nombre}">Nombre Producto</h2>
+                        <h2>Nombre Producto</h2>
                     </div>
                     <div class="card-body">
-                        <img th:src="${producto.imagen}" width="200" height="180">
-                        <i th:text="${'$' + producto.precio}">$53.00</i>
+                        <img src="" width="200" height="180">
+                        <i >$53.00</i>
                     </div>
                     <div class="card-footer">
-                        <label th:text="${producto.desc}">Descripción</label>
+                        <label>Descripción</label>
                         <div>
-                            <a class="btn btn-outline-info" th:href="'/agregarAlCarrito/' + ${producto.producto_id}">Agregar al carrito</a>
-                            <a class="btn btn-success" th:href="'/comprar/' + ${producto.producto_id}">Comprar</a>
+                            <a class="btn btn-outline-info">Agregar al carrito</a>
+                            <a class="btn btn-success">Comprar</a>
                         </div>
                     </div>
                 </div>

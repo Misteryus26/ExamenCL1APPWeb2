@@ -1,52 +1,50 @@
 package org.cibertec.edu.pe.model;
 
-import java.io.InputStream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Producto")
+@Table(name = "productos")
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int producto_id;
+    private int id;
     private String nombre;
     private double precio;
-    private String desc;
+    private String descripcion;
     private int stock;
-
-    @Lob
-    private byte[] imagen;
-
+    private String imagen;
+    
+    @ManyToOne
+    private Cliente cliente;
 		
 	public Producto() {}
 
-
-	public Producto(int producto_id, String nombre, double precio, String desc, int stock, byte[] imagen) {
-		this.producto_id = producto_id;
+	public Producto(int id, String nombre, double precio, String descripcion, int stock, String imagen, Cliente cliente) {
+		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.desc = desc;
+		this.descripcion = descripcion;
 		this.stock = stock;
 		this.imagen = imagen;
+		this.cliente = cliente;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 
-
-	public int getProducto_id() {
-		return producto_id;
-	}
-
-
-	public void setProducto_id(int producto_id) {
-		this.producto_id = producto_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -70,13 +68,13 @@ public class Producto {
 	}
 
 
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 
@@ -90,14 +88,32 @@ public class Producto {
 	}
 
 
-	public byte[] getImagen() {
+	public String getImagen() {
 		return imagen;
 	}
 
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", descripcion=" + descripcion + ", stock="
+				+ stock + ", imagen=" + imagen + "]";
+	}
+
+	
 	}
 
